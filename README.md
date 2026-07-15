@@ -78,9 +78,12 @@ I recommend using Homebrew for all installations.
 
 ## Setup for Raspberry Pi 
 
-This setup uses a USB Audio Input 
+This setup uses a USB Audio Input from Alsa Record on the Pi 5 
 
-`arecord -D hw:2,0 -c 1 -r 44100 -f S16_LE | ./feed_my_wled.py`
+`arecord -D hw:2,0 -c 1 -r 48000 -f S16_LE | ./feed_my_wled.py`
+`arecord -D default:CARD=Device -c 1 -r 48000 -f S16_LE | ./feed_my_wled.py -c feed_my_wled-ch1.conf`
+`arecord -D default:CARD=Device_1 -c 1 -r 48000 -f S16_LE | ./feed_my_wled.py -c feed_my_wled-ch2.conf`
+`arecord -D default:CARD=Device_2 -c 1 -r 48000 -f S16_LE | ./feed_my_wled.py -c feed_my_wled-ch3.conf`
 
 
 ### About Me

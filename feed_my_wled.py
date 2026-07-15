@@ -4,12 +4,25 @@ import sys
 import configparser
 import socket
 import struct
+import argparse
 import numpy as np
 from collections import deque
 
+# Parse only the config file first
+config_parser = argparse.ArgumentParser(add_help=False)
+config_parser.add_argument(
+    "-c", "--config_file",
+    default="feed_my_wled.conf",
+    help="Configuration file"
+)
+
+config_args, remaining = config_parser.parse_known_args()
+
+
 # load preferences file
 config = configparser.ConfigParser()
-config.read("feed_my_wled.conf")
+#config.read("feed_my_wled.conf")
+config.read(config_args.config_file)
 
 #load preferences
 WLED_IP_ADDRESS = config.get("WLED", "WLED_IP_ADDRESS")
