@@ -13,6 +13,7 @@ config.read("feed_my_wled.conf")
 
 #load preferences
 WLED_IP_ADDRESS = config.get("WLED", "WLED_IP_ADDRESS")
+# WLED_IPS = config.get("WLED", "WLED_IPS")
 WLED_UDP_PORT = config.getint("WLED", "WLED_UDP_PORT")
 sample_rate = config.getint("Audio", "sample_rate")
 buffer_size = config.getint("Audio", "buffer_size")
@@ -109,7 +110,7 @@ def stream_audio_to_wled():
         ring_buffer.append(b"\x00" * chunk_size)
 
     try:
-        print(f"Start Pipe to WLED at ({WLED_IP_ADDRESS}:{WLED_UDP_PORT})...")
+        print(f"Starting Pipe to WLED at {WLED_IP_ADDRESS}:{WLED_UDP_PORT} ")
 
         # open stream from pipe
         while True:
@@ -122,7 +123,7 @@ def stream_audio_to_wled():
             combined_data = b"".join(ring_buffer)
 
             # Calc FFT and Peaks with buffersize
-            fft_result = calculate_fft(combined_data[:chunk_size])
+            fft_result = calculate_fft(combined_data[:chunk_size], sample_rate)
             if fft_result[0] is None:
                 print("Unvalid FFT-Datas, skip actual block.")
                 continue
@@ -139,6 +140,9 @@ def stream_audio_to_wled():
 
             # Send Package to WLED
             udp_socket.sendto(udp_packet, (WLED_IP_ADDRESS, WLED_UDP_PORT))
+            # Send to multiple recievers
+            #for ip in WLED_IPS:
+                  #udp_socket.sendto(udp_packet, (ip, WLED_UDP_PORT))
 
     except KeyboardInterrupt:
         print("Audiostreaming closed.")

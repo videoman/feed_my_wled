@@ -76,5 +76,12 @@ I recommend using Homebrew for all installations.
 # `pactl load-module module-pipe-sink sink_name=wled file=/tmp/wled format=s16le rate=44100 channels=1`
 # `cat /tmp/wled | ./feed_my_wled.py`
 
+## Setup for Raspberry Pi 
+
+This setup uses a USB Audio Input 
+
+`arecord -D hw:2,0 -c 1 -r 44100 -f S16_LE | ./feed_my_wled.py`
+
+
 ### About Me
 This is my first project on GitHub and also my first "real" project written in Python, a language I’ve never used before. So, if you see something weird or unusual, please have mercy and let me know how I can improve. Regards, Chris
