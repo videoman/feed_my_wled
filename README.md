@@ -85,6 +85,12 @@ This setup uses a USB Audio Input from Alsa Record on the Pi 5
 `arecord -D default:CARD=Device_1 -c 1 -r 48000 -f S16_LE | ./feed_my_wled.py -c feed_my_wled-ch2.conf`
 `arecord -D default:CARD=Device_2 -c 1 -r 48000 -f S16_LE | ./feed_my_wled.py -c feed_my_wled-ch3.conf`
 
+## Linux Requirements:
+`sudo apt install libasound2-dev`
+and
+`sudo apt install python3-alsaaudio`
+or
+`pip install pyalsaaudio`
 
 ### About Me
 This is my first project on GitHub and also my first "real" project written in Python, a language I’ve never used before. So, if you see something weird or unusual, please have mercy and let me know how I can improve. Regards, Chris
